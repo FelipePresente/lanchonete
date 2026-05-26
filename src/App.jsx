@@ -1,37 +1,43 @@
 import { useState } from 'react'
 import './App.css'
-import mac1 from './assets/mac1.png'
-import mac2 from './assets/mac2.webp'
+import imgCasal from './assets/casal.jpg'
+import imgIndividual from './assets/individual.jpg'
+import CardProduto from './components/CardProduto'
 
 function App() {
+  const [tipoCombo, setTipoCombo] = useState('casal');
+  
   const dadosCombo = {
     casal: {
-      imagem: mac1,
+      imagem: imgCasal,
       titulo: 'Combo para duas pessoas',
-      preco: "R$ 65,00",
-      descricao: 'descricao 1'
+      preco: 'R$ 90,00',
+      descricao: 'Dois hambúrgueres + batata frita para dois.'
     },
-    familia: {
-      imagem: mac2,
-      titulo: 'Combo para quatro pessoas',
-      preco: "R$ 100,00",
-      descricao: "descricao 2",
+
+    individual: {
+      imagem: imgIndividual,
+      titulo: 'Combo individual',
+      preco: 'R$ 55,00',
+      descricao: 'Hambúrguer + batata frita + bebida.'
     }
   }
 
-  const [combo, setCombo] = useState(dadosCombo.casal)
+  const dados = dadosCombo[tipoCombo]
 
   const alterarCombo = () => {
+    setTipoCombo(tipoCombo === 'casal' ? 'individual' : 'casal')
   }
 
   return (
     <>
-      <div className="container">
+      <div className='container'>
         <h1>Escolha o seu combo</h1>
-        <button onClick={alterarCombo}>Mudar Combo</button>
-      </div>
+        <button onClick={alterarCombo}>Mudar combo</button>
+      
 
-       <img src={combo.imagem} alt="" />
+      <CardProduto imagem={dados.imagem} titulo={dados.titulo} preco={dados.preco} descricao={dados.descricao} />
+      </div>
     </>
   )
 }
